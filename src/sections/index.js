@@ -6,7 +6,7 @@ import WhatsNew from './WhatsNew';
 import World from './World';
 import Insights from './Insights';
 import Feedback from './Feedback';
-import Enter from './Enter.Jsx';
+import Enter from './Enter';
 
 export {
   Hero,
