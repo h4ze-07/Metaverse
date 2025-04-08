@@ -1,38 +1,19 @@
-import Lenis from '@studio-freight/lenis';
-import { useEffect, useRef } from 'react';
+import Lenis from 'lenis';
+import { useEffect } from 'react';
 import { Footer, Navbar } from "./components";
 import { About, Enter, Explore, Feedback, GetStarted, Hero, Insights, WhatsNew, World } from './sections';
 
 function App() {
 
-    const lenisRef = useRef(null);
-    const rafHandleRef = useRef(null);
-
     useEffect(() => {
-        if (!lenisRef.current) {
-            lenisRef.current = new Lenis({
-                duration: 0.6,
-                easing: (t) => 1 - Math.pow(1 - t, 3),
-                smooth: true,
-                smoothTouch: true,
-            });
-            const raf = (time) => {
-                lenisRef.current?.raf(time);
-                rafHandleRef.current = requestAnimationFrame(raf);
-            };
-            rafHandleRef.current = requestAnimationFrame(raf);
+        const lenis = new Lenis();
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
         }
 
-        return () => {
-            if (lenisRef.current) {
-                lenisRef.current.destroy();
-                lenisRef.current = undefined;
-            }
-            if (rafHandleRef.current) {
-                cancelAnimationFrame(rafHandleRef.current);
-                rafHandleRef.current = null;
-            }
-        };
+        requestAnimationFrame(raf);
     }, []);
 
     return (
